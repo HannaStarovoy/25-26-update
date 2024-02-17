@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.db.models import Q
 from django.urls import reverse
 from django.utils import timezone
@@ -172,6 +172,11 @@ def show_about_view(request: WSGIRequest):
 
 @login_required
 def profile_view(request: WSGIRequest, username: str):
+    user = get_object_or_404(User, username=username)
+    if user != request.user:
+        return HttpResponseForbidden("Запрещено")
+
+
     if request.method == "POST":
         user = User.objects.get(username=username)
         user.first_name = request.POST.get("first_name", user.first_name)
