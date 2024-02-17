@@ -1,8 +1,0 @@
-# created by virtualenv automatically
-.idea
-.venv
-db.sqlite3
-static/admin
-static/debug_toolbar
-static/ckeditor
-media
